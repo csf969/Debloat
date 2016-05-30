@@ -1,0 +1,434 @@
+ini_set("rom_name",             "Samsung Bloatware Removal Script");
+ini_set("rom_version",          "V2.0c");
+ini_set("rom_author",           "redjamesg");
+ini_set("rom_device",           "Samsung Galaxy S7/S7 Edge G930F/G935F");
+ini_set("rom_date",             "30 MAY 2016");
+##
+## Image to show uppon execution
+##
+ini_set("force_colorspace", "rgba");
+splash(
+    3000,
+    "bloat"
+);
+## The fonts to use
+fontresload( "0", "ttf/Roboto-Regular.ttf;ttf/DroidSansArabic.ttf;ttf/DroidSansFallback.ttf;", "12" ); #-- Use sets of font (Font Family)
+## Theme being used
+theme("material_purple");
+
+
+
+##
+# SHOW LANGUAGE SELECTION
+#
+
+selectbox(
+  #-- Title
+    "Select Language",
+  
+  #-- Sub Title
+    "Please select installer language that you want to use while Installing ROM",
+  
+  #-- Icon:
+    "@default",
+  
+  #-- Will be saved in /tmp/aroma/lang.prop
+    "lang.prop",
+  
+    "English",            "Welcome to Installer",                                        1,      #-- selected.0 = 1
+    "Indonesian",         "Selamat datang di Installer",                                 0,      #-- selected.0 = 2
+    "Espanol",            "Bienvenido al Instalador",                                    0,      #-- selected.0 = 3
+    "Simplified Chinesse","欢迎到安装",                                                   0,      #-- selected.0 = 4
+    "Arabic",             "مرحبا بكم في المثبت",                                         0,      #-- selected.0 = 5        
+    "French",             "Bienvenue dans l'installateur",                               0,      #-- selected.0 = 6
+    "Russian",            "Добро пожаловать в установщик",                               0,      #-- selected.0 = 7
+    "Italian",            "Benvenuti Installer",                                         0,      #-- selected.0 = 8
+    "Hebrew",             "ברוכים הבאים להתקנה",							    	     0,		 #-- selected.0 = 9
+    "Germany",            "Willkommen bei Installer",									 0, 		 #-- selected.0 = 10
+    "Dansk",            "Velkommen til installationen",									 0 		 #-- selected.0 = 11
+
+);
+
+##
+# SET LANGUAGE & FONT FAMILY
+#
+
+if prop("lang.prop","selected.0")=="1" then
+  loadlang("langs/en.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" ); #-- "0" = Small Font ( Look at Fonts & UNICODE Demo Below )
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" ); #-- "1" = Big Font
+endif;
+
+if prop("lang.prop","selected.0")=="2" then
+  loadlang("langs/id.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="3" then
+  loadlang("langs/es.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="4" then
+  loadlang("langs/cn.lang");
+  fontresload( "0", "ttf/DroidSansFallback.ttf;ttf/Roboto-Regular.ttf", "12" ); 
+  fontresload( "1", "ttf/DroidSansFallback.ttf;ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="5" then
+  loadlang("langs/ar.lang");
+  fontresload( "0", "ttf/DroidSansArabic.ttf;ttf/Roboto-Regular.ttf", "12" ); 
+  fontresload( "1", "ttf/DroidSansArabic.ttf;ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="6" then
+  loadlang("langs/fr.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="7" then
+  loadlang("langs/ru.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="8" then
+  loadlang("langs/it.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="9" then
+  loadlang("langs/he.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="10" then
+  loadlang("langs/de.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+if prop("lang.prop","selected.0")=="11" then
+  loadlang("langs/da.lang");
+  fontresload( "0", "ttf/Roboto-Regular.ttf", "12" );
+  fontresload( "1", "ttf/Roboto-Regular.ttf", "18" );
+endif;
+
+
+##############################################
+# MENU
+##############################################
+menubox(
+    "Bloatware Removal",
+    "Please select one of the choices below",
+    "@apps",
+    "menu.prop",
+    "Customized removal",   "Select what bloat you want to remove",     "@personalize",      #-- selected = 1
+    "Complete removal",     "Remove everything that is on the list",      "@default",         #-- selected = 2
+    "Revert to original", "Restore your system, by moving everything placed in /sdcard/Debloat back", "@customize",   #-- selected = 3
+    "Changelog",              "Read Changelog",    "@update",      #-- selected = 4
+    "Info",              "Script version and contributors",    "@welcome"      #-- selected = 5
+    "Exit",              "Exit to recovery",    "@alert"      #-- selected = 6
+);
+
+##############################################
+# Info
+##############################################
+
+if prop("menu.prop", "selected")=="5" then
+    alert(
+      #-- Title
+      ini_get("rom_name"),
+  
+      #-- Text
+      	  ini_get("rom_name")+
+	"</b> <~for> <b>"+ini_get("rom_device")+"</b>.\n\n"+
+    
+    "<~About ROM>\n\n"+
+	
+      "  <~VERSION		>\t: <b><#selectbg_g>"+ini_get("rom_version")+"</#></b>\n"+
+      "  <~RELEASED	>\t\t: <b><#selectbg_g>"+ini_get("rom_date")+"</#></b>\n"+
+      "  <~DEVELOPER   >\t\t: <b><#selectbg_g>"+ini_get("rom_author")+"</#></b>\n\n\n",
+  
+      #-- Icon
+      "@welcome"
+  
+    );
+    back("1");
+endif;
+
+##############################################
+# Exit was selected
+##############################################
+
+if prop("menu.prop", "selected")=="6" then
+    if
+        confirm(
+            "Exit",
+            "Are you sure want to exit the Installer?",
+            "@alert"
+    	)=="yes"
+    then
+        exit("");
+    endif;
+    back("1");
+endif;
+
+
+##############################################
+# Selected Changelog
+##############################################
+
+if prop("menu.prop", "selected")=="4" then
+    alert(
+      #-- Title
+      "CHANGELOG",
+  
+      #-- Text
+      resread("changelog.txt"),
+  
+      #-- Icon
+      "@update"
+  
+    );
+    back("1");
+endif;
+
+##############################################
+# Harsh removing of everything
+##############################################
+
+if prop("menu.prop", "selected")=="2" then
+   if
+       confirm(
+          "Remove Everything",
+          "Are you sure you want to remove everything deemed as bloatware?",
+          "@alert"
+       )=="yes"
+   then
+       resexec("scripts/tools.sh", "reset");
+       resexec("scripts/tools.sh", "remove");
+       setvar("remove", "1");  # remove everything
+   else
+      back("1");
+   endif;
+endif;
+
+##############################################
+# Restoring everything
+##############################################
+
+if prop("menu.prop", "selected")=="3" then
+   if
+       confirm(
+          "Restore Everything",
+          "Are you sure you want to restore everything that has been removed?",
+          "@alert"
+       )=="yes"
+   then
+       # get the configuration from previous and move everything back
+       resexec("scripts/tools.sh", "reset");
+       resexec("scripts/tools.sh", "restore");
+       setvar("restore", "1");
+   else
+        back("1");
+   endif;
+endif;
+
+##############################################
+# Customized removal
+##############################################
+
+if prop("menu.prop", "selected")=="1" then
+   ##############################################
+   # Load Previous Choices
+   ##############################################
+   checkviewbox(
+       "Load Previous Choices",
+       "Load Previous Choices\n\n\n\n\n<b>Do you want to load your choices from a previous removal?</b>\n\n",
+       "@welcome",
+       
+       "Load choices.", "1", "loadselections"
+   );
+   if getvar("loadselections")=="1" then
+      if getvar("reset")!="1" then
+         resexec("scripts/tools.sh", "load");
+         setvar("reset", "1");
+      endif;
+   else
+      if getvar("reset")=="1" then
+	 resexec("scripts/tools.sh", "reset");
+	 setvar("reset","0");
+      endif;
+   endif;
+   checkbox(
+       "Samsung Apps (1/3)",
+       "Choose Samsung Apps you want to remove:",
+       "icons/personalize",
+       "samsung1.prop",
+	    
+       "AirWakeUp",		"- For waking up your phone by simply hovering your hand over the front sensor.",0,
+       "AllShare",	       	"- AllShare media streaming, this also includes WiFi-Direct & Screen Mirroring",0,
+       "ANT+",			"- ANT+ support, ie: for Garmin devices",0,
+       "ApexService",		"- Apex Service (needs explanation)",0,
+       "BasicDreams",		"- Daydreams screensaver mode",0,
+       "BBCAgent",		"- BBCAgent (needs explanation)",0,
+       "BCService",	   	"- BCService (needs explanation)",0,
+       "BeaconManager",	   	"- Dual screen/window controll",0,
+       "BeamService",		"- Digital Barcode service for your membership cards",0,
+       "BookmarkProvider",	"- Adding bookmark from the inbuild browser",0,
+       "Books",			"- Books (needs explanation)",0,
+       "Bridge",		"- Bridge (needs explanation)",0,
+       "BriefingPanel",		"- BriefindPanel (needs explanation)",0,
+       "BrowserProviderProxy",	"- BrowserProviderProxy (needs explanation)",0,
+       "CarmodeStub",		"- CarmodeStub (needs explanation)",0,
+       "CatchFavorites_M",	"- CatchFavorites_M (needs explanation)",0,
+       "ChocoEUKor",		"- ChocoEUKor (needs explanation)",0,
+       "Chrome",		"- Bundled Google Chrome Browser",0, 
+       "CloudGateway",		"- Samsungs Cloudservice",0, 
+       "CnnPanel",		"- CNN news for your Edge panel",0, 
+       "CocktailQuickTool",	"- Compas for your Edge panel",0, 
+       "ColorBlind",		"- Helper for the colorblind",0, 
+       "ConfigUpdater",		"- ConfigUpdater (needs explanation)",0, 
+       "ControlTV",		"- IR blaster for remote controls (needs explanation)",0, 
+       "CoolEUKor",		"- CoolEUKor (needs explanation)",0,
+       "DictDiotek",		"- Samsung Dictionary (needs explanation)",0, 
+       "DigitalClock",		"- Digital Clock on homescreen (Also DualClock)",0, 
+       "Drive",			"- Samsung Car mode (needs explanation)",0, 
+       "DRParser",		"- DRParser (needs explanation)",0, 
+       "EasyMode",		"- Easy Mode with easy one hand control",0,
+       "ELMAgent",		"- ELMAgent (need explanation)",0,
+       "EmergencyLauncher",	"- Touchwiz Easy start",0,
+       "ESEServiceAgent",	"- ESEServiceAgent (needs explanation)",0,
+       "Flipboard",		"- Edge functionality in landscape (needs explanation)",0,
+       "Foundation",		"- Foundation (needs explanation)",0,
+       "GalaxyAppsWidget",	"- GalaxyAppsWidget (needs explanation)",0,
+       "GameOptimizer",		"- GameOptimizer (needs explanation)",0,
+       "GearManagerStub",	"- GearManagerStub (needs explanation)",0,
+       "hrs_android",		"- German branded keysource (needs explanation)",0,
+       "HighlightPlayer",	"- Samsung Video Player",0,
+       "Hs20Provider",		"- Hs20Provider (needs explanation)",0,
+       "ImsService",		"- ImsService (needs explanation)",0,
+       "InteractiveTutorial",	"- InteractiveTutorial (needs explanation)",0,
+       "IWlanContentProvider",	"- IWlanContentProvider (needs explanation)",0,
+       "Kies",			"- Kies Support",0
+       
+   ); 
+   checkbox(
+       "Samsung Apps (2/3)",
+       "Choose Samsung Apps you want to remove:",
+       "icons/personalize",
+       "samsung2.prop",
+       "Knox",		"- Knox security with encryption",0,
+       "MDMApp",	"- MDMApp (needs explanation)",0,
+       "Minimode-res",	"- Scaling view to minimize your screen usage",0,
+       "MobilePrint",	"- Printing from your Samsung mobile",0,
+       "MobileTracker",	"- Mobile Tracker (needs explanation)",0,
+       "NaverTvCast",	"- Cast your display to TV",0,
+       "Newsstand",	"- News info displayed on your bulletin",0,
+       "OCR",		"- Text recognition in images",0,
+       "Omc",		"- Omc (needs explanation)",0,
+       "OneDrive",	"- Samsung support for microsoft One drive",0,
+       "OneNote/Memo",	"- Samsung Note equivalent to Google Keep",0,
+       "PageBuddyNotiS","- PageBuddyNotiS (needs description)",0,
+       "PartnerBookmarks","- PartnerBookmarks (needs description)",0,
+       "PENUP",		"- PENUP (needs description)",0,
+       "Photos",	"- Photos - possibly photos for AOD (needs description)",0,
+       "PlusOne",	"- PlusOne (needs description)",0,
+       "Post_T_Promo",	"- Post_T_Promo (needs description)",0,
+       "PowerSharing",	"- PowerSharing (needs description)",0,
+       "Preconfig",	"- Preconfig (needs description)",0,
+       "PreloadInstaller",	"- PreloadInstaller (needs description)",0,
+       "QuickConnect",	"- QuickConnect (needs description)",0,
+       "RCPComponents",	"- RCPComponents (needs description)",0,
+       "RemotePlayer",	"- RemotePlayer (needs description)",0,
+       "RootPA",	"- RootPA (needs description)",0,
+       "RoseEUKor",	"- RoseEUKor (needs description)",0,
+       
+   );
+   checkbox(
+       "Samsung Apps (3/3)",
+       "Choose Samsung Apps you want to remove:",
+       "icons/personalize",
+       "samsung3.prop",
+       "Unused",		"- Empty placeholder",0
+   );
+   checkbox(
+       "Google Apps",
+       "Choose Google Apps you want to remove:",
+       "icons/personalize",
+       "google.prop",
+		    
+       "Theme Manager","Galaxy S6 Theme Manager & Store",0,
+       "S-Print","Samsung S-Print print support",0,
+       "Gear VR support","Gear VR Support apps",0
+   );
+   checkbox(
+       "Third party Apps",
+       "Choose what Carrier included Apps and other bloat you want to remove",
+       "icons/personalize",
+       "carrier.prop",
+	    
+       "NFC SmartCard service","NFC Smart card/tag service",0,
+       "Samsung Help","The Help function that you can find in many Samsung/system apps & Online Manual",0,
+       "Samsung Magnifier","The Magnifier that you can find in the Toolbox function",0
+   );
+endif;
+      
+
+ini_set("text_next", "Next");
+
+###
+# We have to save the selections
+###
+#if confirm( "Save choices", "Do you want to store current Choices for later?", "@alert")=="yes" then
+resexec("scripts/tools.sh", "save");
+#endif;
+
+
+##############################################
+# Ask if we want to proceed
+##############################################
+
+if getvar("restore")!="1" then
+    if getvar("remove")!="1" then
+        viewbox(
+            "Ready to remove BloatWare",
+            "Removal of BloatWare has been configured\n\n"+
+	    "Press <b>Next</b> to remove the unwanted stuff\n\n"+
+	    "If you want to change any of your customized settings, press <b>Back</b>.",
+            "@install"
+        );
+    endif;
+endif;
+
+
+##############################################
+# Finish this script
+##############################################
+
+setvar("retstatus",
+    install(
+	#-- Title
+       "Please Wait...",
+	
+	#-- Installation Process message
+	"<b>"+ini_get("rom_name")+"</b>\n\n"+
+        "Please wait while processing your selection...\n\n"+
+	"This may take several minutes.",
+	
+	#-- Installation Icon
+      "@install",
+	
+	#-- Installation Finish Message
+        "The process has successfully ended.\n\n"+
+	"Press Finish to continue."
+  )
+);
+
+ini_set("text_next", "Finish");

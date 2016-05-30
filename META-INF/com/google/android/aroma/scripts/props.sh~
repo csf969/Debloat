@@ -1,0 +1,7 @@
+#!/sbin/sh
+#
+# Duplicate props
+# by redjames
+#
+
+cp /tmp/aroma/aromadebloat.prop /tmp/aroma/debloat.prop

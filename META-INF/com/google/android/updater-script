@@ -1,0 +1,526 @@
+ui_print("******************************************");
+ui_print("Bloatware Removal Script for Samsung SM-G930F/G935F");
+ui_print("Made by: redjamesg");
+ui_print("******************************************");
+ui_print(" ");
+
+## Properly unmounting to avoid issues
+show_progress(0.1, 2);
+ui_print("Clean UnMounting Partitions");
+run_program("/sbin/busybox", "umount", "/system");
+run_program("/sbin/busybox", "umount", "/cache");
+run_program("/sbin/busybox", "umount", "/data");
+
+## Mount the needed partitions
+show_progress(0.2, 2);
+ui_print("Correct Mounting Partitions");
+run_program("/sbin/busybox", "mount", "/system");
+run_program("/sbin/busybox", "mount", "/cache");
+run_program("/sbin/busybox", "mount", "/data");
+
+show_progress(0.25, 2);
+## We do not remove, we simply move stuff
+## So we better make available locations ready
+run_program("/sbin/busybox", "mkdir", "/sdcard/Debloat/");
+run_program("/sbin/busybox", "mkdir", "/sdcard/Debloat/system_app");
+run_program("/sbin/busybox", "mkdir", "/sdcard/Debloat/system_priv-app");
+
+#######################################
+## Delete all Samsung branded system/apps
+#######################################
+show_progress(0.3, 2);
+ui_print("Deleting Samsung system/app");
+# AirWakeUp
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.1") == "1" then
+    ui_print("Removing AirWakeUp...");
+    run_program("/sbin/busybox", "mv", "/system/app/AirWakeUp", "/sdcard/Debloat/system_app");
+endif;
+# AllShare
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.2") == "1" then
+    ui_print("Removing the AllShare features...");
+    run_program("/sbin/busybox", "mv", "/system/app/AllShareCastPlayer", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/AllshareFileShare", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/AllshareFileShareClient", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/AllshareFileShareServer", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/AllshareMediaServer", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/AllshareMediaShare", "/sdcard/Debloat/system_app");
+endif;
+# ANT
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.3") == "1" then
+    ui_print("Removing the ANT+ features...");
+    run_program("/sbin/busybox", "mv", "/system/app/AntHalService", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ANTPlusPlugins", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ANTPlusTest", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ANTRadioService", "/sdcard/Debloat/system_app");
+endif;
+# ApexService
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.4") == "1" then
+    ui_print("Removing ApexService...");
+    run_program("/sbin/busybox", "mv", "/system/app/ApexService", "/sdcard/Debloat/system_app");
+endif;
+# BasicDreams
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.5") == "1" then
+    ui_print("Removing AirWakeUp...");
+    run_program("/sbin/busybox", "mv", "/system/app/BasicDreams", "/sdcard/Debloat/system_app");
+endif;
+# BBCAgent
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.6") == "1" then
+    ui_print("Removing BBCAgent...");
+    run_program("/sbin/busybox", "mv", "/system/app/BBCAgent", "/sdcard/Debloat/system_app");
+endif;
+# BCService
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.7") == "1" then
+    ui_print("Removing BCService...");
+    run_program("/sbin/busybox", "mv", "/system/app/BCService", "/sdcard/Debloat/system_app");
+endif;
+# BeaconManager
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.8") == "1" then
+    ui_print("Removing BeaconManager...");
+    run_program("/sbin/busybox", "mv", "/system/app/BeaconManager_20", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/BeaconManager_40", "/sdcard/Debloat/system_app");
+endif;
+# BeamService
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.9") == "1" then
+    ui_print("Removing BeamService...");
+    run_program("/sbin/busybox", "mv", "/system/app/BeamService", "/sdcard/Debloat/system_app");
+endif;
+# BookmarkProvider
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.10") == "1" then
+    ui_print("Removing BookmarkProvider...");
+    run_program("/sbin/busybox", "mv", "/system/app/BookmarkProvider", "/sdcard/Debloat/system_app");
+endif;
+# Books
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.11") == "1" then
+    ui_print("Removing Books...");
+    run_program("/sbin/busybox", "mv", "/system/app/Books", "/sdcard/Debloat/system_app");
+endif;
+# Bridge
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.12") == "1" then
+    ui_print("Removing Bridge...");
+    run_program("/sbin/busybox", "mv", "/system/app/Bridge", "/sdcard/Debloat/system_app");
+endif;
+# BriefingPanel
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.13") == "1" then
+    ui_print("Removing BriefingPanel...");
+    run_program("/sbin/busybox", "mv", "/system/app/BriefingPanel", "/sdcard/Debloat/system_app");
+endif;
+# BrowserProviderProxy
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.14") == "1" then
+    ui_print("Removing BrowserProviderProxy...");
+    run_program("/sbin/busybox", "mv", "/system/app/BrowserProviderProxy", "/sdcard/Debloat/system_app");
+endif;
+# CarmodeStub
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.15") == "1" then
+    ui_print("Removing CarmodeStub...");
+    run_program("/sbin/busybox", "mv", "/system/app/CarmodeStub", "/sdcard/Debloat/system_app");
+endif;
+# CatchFavorites_M
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.16") == "1" then
+    ui_print("Removing CatchFavorites_M...");
+    run_program("/sbin/busybox", "mv", "/system/app/CatchFavorites_M", "/sdcard/Debloat/system_app");
+endif;
+# ChocoEUKor
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.17") == "1" then
+    ui_print("Removing ChocoEUKor...");
+    run_program("/sbin/busybox", "mv", "/system/app/ChocoEUKor", "/sdcard/Debloat/system_app");
+endif;
+# Chrome
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.18") == "1" then
+    ui_print("Removing Chrome...");
+    run_program("/sbin/busybox", "mv", "/system/app/Chrome", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ChromeCustomizations", "/sdcard/Debloat/system_app");
+endif;
+# CloudGateway
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.19") == "1" then
+    ui_print("Removing CloudGateway...");
+    run_program("/sbin/busybox", "mv", "/system/app/CloudGateway", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudBackupApp", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudBackupAppZero", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudDataRelay", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudDataSync", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudDataSyncZero", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudQuotaApp", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/SCloudServiceHero", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudSyncCalendar", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudSyncContacts", "/sdcard/Debloat/system_priv-app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudSyncMemo", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/priv-app/sCloudSyncSBrowser", "/sdcard/Debloat/system_priv-app");
+endif;
+# CnnPanel
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.20") == "1" then
+    ui_print("Removing CnnPanel...");
+    run_program("/sbin/busybox", "mv", "/system/app/CnnPanel", "/sdcard/Debloat/system_app");
+endif;
+# CocktailQuickTool
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.21") == "1" then
+    ui_print("Removing CocktailQuickTool...");
+    run_program("/sbin/busybox", "mv", "/system/app/CocktailQuickTool", "/sdcard/Debloat/system_app");
+endif;
+# ColorBlind
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.22") == "1" then
+    ui_print("Removing ColorBlind...");
+    run_program("/sbin/busybox", "mv", "/system/app/ColorBlind", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ColorBlind_M", "/sdcard/Debloat/system_app");
+endif;
+# ConfigUpdater
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.23") == "1" then
+    ui_print("Removing ConfigUpdater...");
+    run_program("/sbin/busybox", "mv", "/system/app/ConfigUpdater", "/sdcard/Debloat/system_app");
+endif;
+# ControlTV
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.24") == "1" then
+    ui_print("Removing ControlTV...");
+    run_program("/sbin/busybox", "mv", "/system/app/ControlTV", "/sdcard/Debloat/system_app");
+endif;
+# CoolEUKor
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.25") == "1" then
+    ui_print("Removing CoolEUKor...");
+    run_program("/sbin/busybox", "mv", "/system/app/CoolEUKor", "/sdcard/Debloat/system_app");
+endif;
+# DictDiotek
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.26") == "1" then
+    ui_print("Removing DictDiotek...");
+    run_program("/sbin/busybox", "mv", "/system/app/DictDiotek", "/sdcard/Debloat/system_app");
+endif;
+# DigitalClock
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.27") == "1" then
+    ui_print("Removing DigitalClock...");
+    run_program("/sbin/busybox", "mv", "/system/app/DigitalClock", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/DigitalClockEasy", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/DigitalClock_L", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/DualClockDigital", "/sdcard/Debloat/system_app");
+endif;
+# Drive
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.28") == "1" then
+    ui_print("Removing Drive...");
+    run_program("/sbin/busybox", "mv", "/system/app/Drive", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/DriveLink", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/DriveLinkRemote", "/sdcard/Debloat/system_app");
+endif;
+# DRParser
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.29") == "1" then
+    ui_print("Removing DRParser...");
+    run_program("/sbin/busybox", "mv", "/system/app/DRParser", "/sdcard/Debloat/system_app");
+endif;
+# EasyMode
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.30") == "1" then
+    ui_print("Removing EasyMode...");
+    run_program("/sbin/busybox", "mv", "/system/app/EasyModeContactsWidget", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EasyModeContactsWidget_RECT", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EasyOneHand3", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EasySettings", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EasySetup", "/sdcard/Debloat/system_app");
+endif;
+# ELMAgent
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.31") == "1" then
+    ui_print("Removing ElMAgent...");
+    run_program("/sbin/busybox", "mv", "/system/app/ELMAgent", "/sdcard/Debloat/system_app");
+endif;
+# EmergencyLauncher
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.32") == "1" then
+    ui_print("Removing EmergencyLauncher...");
+    run_program("/sbin/busybox", "mv", "/system/app/EmergencyLauncher", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EmergencyModeService", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/EmergencyProvider", "/sdcard/Debloat/system_app");
+endif;
+# ESEServiceAgent
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.33") == "1" then
+    ui_print("Removing ESEServiceAgent...");
+    run_program("/sbin/busybox", "mv", "/system/app/ESEServiceAgent", "/sdcard/Debloat/system_app");
+endif;
+# Flipboard
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.34") == "1" then
+    ui_print("Removing Flipboard...");
+    run_program("/sbin/busybox", "mv", "/system/app/Flipboard", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/FlipboardBriefing", "/sdcard/Debloat/system_app");
+endif;
+# Foundation
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.35") == "1" then
+    ui_print("Removing Foundation...");
+    run_program("/sbin/busybox", "mv", "/system/app/Foundation", "/sdcard/Debloat/system_app");
+endif;
+# GalaxyAppsWidget
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.36") == "1" then
+    ui_print("Removing GalaxyAppsWidget...");
+    run_program("/sbin/busybox", "mv", "/system/app/GalaxyAppsWidget_Phone_Hero", "/sdcard/Debloat/system_app");
+endif;
+# GameOptimizer
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.37") == "1" then
+    ui_print("Removing GameOptimizer...");
+    run_program("/sbin/busybox", "mv", "/system/app/GameOptimizer", "/sdcard/Debloat/system_app");
+endif;
+# GearManagerStub
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.38") == "1" then
+    ui_print("Removing GearManagerStub...");
+    run_program("/sbin/busybox", "mv", "/system/app/GearManagerStub", "/sdcard/Debloat/system_app");
+endif;
+# hrs_android
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.39") == "1" then
+    ui_print("Removing hrs_android...");
+    run_program("/sbin/busybox", "mv", "/system/app/hrs_android_samsung_de_2014_keysource", "/sdcard/Debloat/system_app");
+endif;
+# HighlightPlayer
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.40") == "1" then
+    ui_print("Removing HighlightPlayer...");
+    run_program("/sbin/busybox", "mv", "/system/app/HighlightPlayer_Hero", "/sdcard/Debloat/system_app");
+endif;
+# Hs20Provider
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.41") == "1" then
+    ui_print("Removing Hs20Provider...");
+    run_program("/sbin/busybox", "mv", "/system/app/Hs20Provider", "/sdcard/Debloat/system_app");
+endif;
+# ImsService
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.42") == "1" then
+    ui_print("Removing ImsService...");
+    run_program("/sbin/busybox", "mv", "/system/app/imsservice", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ImsSettings", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/ImsTelephonyService", "/sdcard/Debloat/system_app");
+endif;
+# InteractiveTutorial
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.43") == "1" then
+    ui_print("Removing InteractiveTutorial...");
+    run_program("/sbin/busybox", "mv", "/system/app/InteractiveKeyguardTutorial", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/InteractiveTutorial", "/sdcard/Debloat/system_app");
+endif;
+# IWlanContentProvider
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.44") == "1" then
+    ui_print("Removing IWlanContentProvider...");
+    run_program("/sbin/busybox", "mv", "/system/app/IWlanContentProvider", "/sdcard/Debloat/system_app");
+endif;
+# Kies
+if file_getprop("/tmp/aroma/samsung1.prop","item.0.45") == "1" then
+    ui_print("Removing Kies...");
+    run_program("/sbin/busybox", "mv", "/system/app/Kies", "/sdcard/Debloat/system_app");
+endif;
+show_progress(0.335, 2);
+# Knox
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.1") == "1" then
+    ui_print("Removing Knox...");
+    run_program("/sbin/busybox", "mv", "/system/app/KnoxAppsUpdateAgent", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/KnoxAttestationAgent", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/KnoxFolderContainer", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/KnoxSetupWizardClient", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/KnoxSwitcher", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/MyKNOXSetupWizard", "/sdcard/Debloat/system_app");
+endif;
+# MDMApp
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.2") == "1" then
+    ui_print("Removing MDMApp...");
+    run_program("/sbin/busybox", "mv", "/system/app/MDMApp", "/sdcard/Debloat/system_app");
+endif;
+# MDMApp
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.3") == "1" then
+    ui_print("Removing minimode-res...");
+    run_program("/sbin/busybox", "mv", "/system/app/minimode-res", "/sdcard/Debloat/system_app");
+endif;
+# MobilePrint
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.4") == "1" then
+    ui_print("Removing MobilePrint...");
+    run_program("/sbin/busybox", "mv", "/system/app/MobilePrintSvc_Samsung", "/sdcard/Debloat/system_app");
+endif;
+# MobileTracker
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.5") == "1" then
+    ui_print("Removing MobileTracker...");
+    run_program("/sbin/busybox", "mv", "/system/app/MobileTrackerEngineTwo", "/sdcard/Debloat/system_app");
+endif;
+# NaverTvCast
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.6") == "1" then
+    ui_print("Removing NaverTvCast...");
+    run_program("/sbin/busybox", "mv", "/system/app/NaverTvCast", "/sdcard/Debloat/system_app");
+endif;
+# Newsstand
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.7") == "1" then
+    ui_print("Removing Newsstand...");
+    run_program("/sbin/busybox", "mv", "/system/app/Newsstand", "/sdcard/Debloat/system_app");
+endif;
+# OCR
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.8") == "1" then
+    ui_print("Removing OCR...");
+    run_program("/sbin/busybox", "mv", "/system/app/OCRSeg", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/OCRService", "/sdcard/Debloat/system_app");
+endif;
+# Omc
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.9") == "1" then
+    ui_print("Removing Omc...");
+    run_program("/sbin/busybox", "mv", "/system/app/Omc", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/Omc_v1-release", "/sdcard/Debloat/system_app");
+endif;
+# OneDrive
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.10") == "1" then
+    ui_print("Removing Omc...");
+    run_program("/sbin/busybox", "mv", "/system/app/OneDrive_Samsung_v2", "/sdcard/Debloat/system_app");
+endif;
+# OneNote/Memo
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.11") == "1" then
+    ui_print("Removing Omc...");
+    run_program("/sbin/busybox", "mv", "/system/app/OneNote", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/SecMemo3", "/sdcard/Debloat/system_app");
+endif;
+# PageBuddyNotiS
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.12") == "1" then
+    ui_print("Removing PageBuddyNotiS...");
+    run_program("/sbin/busybox", "mv", "/system/app/PageBuddyNotiSvc2", "/sdcard/Debloat/system_app");
+endif;
+# PartnerBookmarks
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.13") == "1" then
+    ui_print("Removing PartnerBookmarks...");
+    run_program("/sbin/busybox", "mv", "/system/app/PartnerBookmarksProvider", "/sdcard/Debloat/system_app");
+endif;
+# PENUP
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.14") == "1" then
+    ui_print("Removing PENUP...");
+    run_program("/sbin/busybox", "mv", "/system/app/PENUP", "/sdcard/Debloat/system_app");
+endif;
+# Photos
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.15") == "1" then
+    ui_print("Removing Photos...");
+    run_program("/sbin/busybox", "mv", "/system/app/Photos", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/PhotosTable", "/sdcard/Debloat/system_app");
+endif;
+# PlusOne
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.16") == "1" then
+    ui_print("Removing PlusOne...");
+    run_program("/sbin/busybox", "mv", "/system/app/PlusOne", "/sdcard/Debloat/system_app");
+endif;
+# Post_T_Promo
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.17") == "1" then
+    ui_print("Removing Post_T_Promo...");
+    run_program("/sbin/busybox", "mv", "/system/app/Post_T_Promo", "/sdcard/Debloat/system_app");
+endif;
+# PowerSharing
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.18") == "1" then
+    ui_print("Removing PowerSharing...");
+    run_program("/sbin/busybox", "mv", "/system/app/PowerSharing", "/sdcard/Debloat/system_app");
+endif;
+# Preconfig
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.19") == "1" then
+    ui_print("Removing Preconfig...");
+    run_program("/sbin/busybox", "mv", "/system/app/Preconfig", "/sdcard/Debloat/system_app");
+endif;
+# PreloadInstaller
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.20") == "1" then
+    ui_print("Removing PreloadInstaller...");
+    run_program("/sbin/busybox", "mv", "/system/app/PreloadInstaller", "/sdcard/Debloat/system_app");
+endif;
+# QuickConnect
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.21") == "1" then
+    ui_print("Removing QuickConnect...");
+    run_program("/sbin/busybox", "mv", "/system/app/QuickConnect_20", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/QuickConnect_30", "/sdcard/Debloat/system_app");
+    run_program("/sbin/busybox", "mv", "/system/app/QuickConnect_40", "/sdcard/Debloat/system_app");
+endif;
+# RCPComponents
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.22") == "1" then
+    ui_print("Removing RCPComponents...");
+    run_program("/sbin/busybox", "mv", "/system/app/RCPComponents", "/sdcard/Debloat/system_app");
+endif;
+# RemotePlayer
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.23") == "1" then
+    ui_print("Removing RCPComponents...");
+    run_program("/sbin/busybox", "mv", "/system/app/RemotePlayer", "/sdcard/Debloat/system_app");
+endif;
+# RootPA
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.24") == "1" then
+    ui_print("Removing RootPA...");
+    run_program("/sbin/busybox", "mv", "/system/app/RootPA", "/sdcard/Debloat/system_app");
+endif;
+# RoseEUKor
+if file_getprop("/tmp/aroma/samsung2.prop","item.0.25") == "1" then
+    ui_print("Removing RoseEUKor...");
+    run_program("/sbin/busybox", "mv", "/system/app/RoseEUKor", "/sdcard/Debloat/system_app");
+endif;
+
+
+##########################################
+## Delete all Google specific Apps
+##########################################
+show_progress(0.4, 2);
+ui_print("Deleting Google Apps");
+# EdgeFeature
+if file_getprop("/tmp/aroma/google.prop","item.0.1") == "1" then
+    ui_print("Removing Theme Manager features...");
+endif;
+# Allshare
+if file_getprop("/tmp/aroma/google.prop","item.0.2") == "1" then
+    ui_print("Removing the S-Print features...");
+endif;
+# Ultra Power
+if file_getprop("/tmp/aroma/google.prop","item.0.3") == "1" then
+    ui_print("Removing Gear VR features...");
+endif;
+
+
+
+##########################################
+## Delete all System specific Libraries
+##########################################
+show_progress(0.45, 2);
+ui_print("Deleting System Libraries");
+# EdgeFeature
+if file_getprop("/tmp/aroma/system.prop","item.0.1") == "1" then
+    ui_print("Removing Theme Manager features...");
+endif;
+# Allshare
+if file_getprop("/tmp/aroma/system.prop","item.0.2") == "1" then
+    ui_print("Removing the S-Print features...");
+endif;
+# Ultra Power
+if file_getprop("/tmp/aroma/system.prop","item.0.3") == "1" then
+    ui_print("Removing Gear VR features...");
+endif;
+
+#########################################
+## Delete all vendor/carrier specific Apps
+#########################################
+show_progress(0.5, 2);
+ui_print("Deleting Vendor/Carrier Apps");
+# NFC
+if file_getprop("/tmp/aroma/carrier.prop","item.0.1") == "1" then
+    ui_print("Removing NFC Smart features...");
+endif;
+# Samsung Help
+if file_getprop("/tmp/aroma/carrier.prop","item.0.2") == "1" then
+    ui_print("Removing Samsung Help features...");
+endif;
+# Samsung Magnifier
+if file_getprop("/tmp/aroma/carrier.prop","item.0.3") == "1" then
+    ui_print("Removing Samsung Magnifier features...");
+endif;
+
+
+#Making sure UID is correct on partitions
+show_progress(0.6, 2);
+ui_print("Cleaning up and setting metadata");
+set_metadata_recursive("/system/addon.d", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0755, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+set_metadata_recursive("/system/priv-app", "uid", 0, "gid", 0, "dmode", 0755, "fmode", 0644, "capabilities", 0x0, "selabel", "u:object_r:system_file:s0");
+
+#UnMounting and showing proper credits
+show_progress(0.7, 2);
+ui_print("Clean UnMounting partitions");
+run_program("/sbin/busybox", "umount", "/system");
+run_program("/sbin/busybox", "umount", "/cache");
+run_program("/sbin/busybox", "umount", "/data");
+
+#And we're done
+show_progress(0.8, 2);
+ui_print(" ");
+ui_print(" ### Made by Kenneth H. Nielsen");
+ui_print(" ### XDA: @redjamesg");
+ui_print(" ");
+ui_print("Based on @meprakash_pyc ");
+ui_print("    - Bloatware removal script for MM");
+ui_print("Based on @sea-wa");
+ui_print("    - Samsung Galaxy S7 / S7E DeBloat List");
+ui_print("Based on @raulx222");
+ui_print("    - OpengApps aroma installer");
+ui_print("Based on @edgarf28");
+ui_print("    - XstreStoLite S6 add-on Package Installation");
+ui_print(" ");
+ui_print("Special thanks to @mj084 for great information and solutions");
+
+show_progress(0.9, 2);
+ui_print(" ");
+ui_print("Enjoy the cleansing");
+show_progress(1, 2);
+
